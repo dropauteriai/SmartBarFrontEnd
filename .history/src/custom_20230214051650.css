@@ -1,0 +1,4 @@
+/* Provide sufficient contrast against white background */
+*{
+    font-family: 'Ubuntu', sans-serif;
+}
