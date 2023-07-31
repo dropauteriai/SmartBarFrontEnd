@@ -25,7 +25,7 @@ export default function Menu() {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <AddCategoryForm fetchMenuCategories={fetchMenuCategories} />
       <div>
         <div className="d-flex justify-content-center text-primary text-uppercase fs-3 mb-5">

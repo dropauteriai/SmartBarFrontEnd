@@ -107,7 +107,6 @@ export default function GridItem() {
                 </div>
                 <div className="">
                   <button
-                    whileHover={{ scale: 1.2, transition: { duration: 1 } }}
                     className="btn btn-outline-secondary border-0 ms-3"
                     onClick={() => {
                       handleEditClick(table.id);
@@ -131,12 +130,14 @@ export default function GridItem() {
           </div>
         </div>
       ))}
-      <button
-        className="btn btn-outline-primary m-4"
-        onClick={() => handleOnAddTableOpen()}
-      >
-        <i className="fa-solid fa-plus me-1" /> Pridėti stalą
-      </button>
+      <div className="d-flex">
+        <button
+          className="btn btn-outline-primary m-4"
+          onClick={() => handleOnAddTableOpen()}
+        >
+          <i className="fa-solid fa-plus me-1" /> Pridėti stalą
+        </button>
+      </div>
       {addTable && (
         <AddTableForm
           handleOnAddTableClosed={handleOnAddTableClosed}
