@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AddTableForm from "./AddTableForm";
 import EditableInput from "./EditableInput";
+import "./CustomStyles/iconbutton.css";
 
 export default function GridItem() {
   const [tables, setTables] = useState([]);
@@ -94,35 +95,52 @@ export default function GridItem() {
         <div key={table.id} className="col-sm-6 col-md-6 col-lg-4 col-xl-3 p-4">
           <div className="border rounded shadow p-3">
             {isEdit === table.id ? (
-              <EditableInput
-                currentValue={table.name}
-                closeEditInput={closeEditInput}
-                updateItemValue={updateTable}
-                isBackgroundLight={false}
-              />
+              <div className="border-bottom">
+                <EditableInput
+                  currentValue={table.name}
+                  closeEditInput={closeEditInput}
+                  updateItemValue={updateTable}
+                  isBackgroundLight={false}
+                />
+              </div>
             ) : (
-              <div className="d-flex justify-content-between align-items-center p-2 mb-3 border-bottom fs-5">
-                <div className="text-center flex-fill">
-                  {table.name} {table.sortOrder}
-                </div>
-                <div className="">
-                  <button
-                    whileHover={{ scale: 1.2, transition: { duration: 1 } }}
-                    className="btn btn-outline-secondary border-0 ms-3"
-                    onClick={() => {
-                      handleEditClick(table.id);
-                    }}
-                  >
-                    <div>
-                      <i className="fa-solid fa-pen-to-square" />
+              <div className="d-flex justify-content-between align-items-center p-2 mb-3 border-bottom">
+                <div className="d-flex flex-row justify-content-start align-items-center flex-fill ms-3">
+                  <div className="d-flex flex-column justify-content-start align-items-start fw-bold fs-5 me-3">
+                    {table.name} {/*table.sortOrder*/}
+                  </div>
+                  <div className="d-flex flex-column justify-content-start align-items-start">
+                    <div className="d-flex flex-row justify-content-start align-items-start text-secondary">
+                      {/*We will pass here if the order is active or not*/}
+                      Active
                     </div>
-                  </button>
-                  <button
-                    onClick={() => handleDeleteClick(table.id)}
-                    className="btn btn-outline-secondary border-0 ms-2"
-                  >
-                    <i className="fa-solid fa-trash" />
-                  </button>
+                    <div className="d-flex flex-row justify-content-start align-items-start text-secondary">
+                      Order time:
+                      <span className="ms-1">
+                        {/*We will pass here order time*/ "19:11"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="d-flex flex-row">
+                  <div className="icon-button">
+                    <button
+                      className="btn btn-outline-secondary border-0 ms-2"
+                      onClick={() => {
+                        handleEditClick(table.id);
+                      }}
+                    >
+                      <i className="fa-solid fa-pen-to-square" />
+                    </button>
+                  </div>
+                  <div className="icon-button">
+                    <button
+                      onClick={() => handleDeleteClick(table.id)}
+                      className="btn btn-outline-secondary border-0 ms-2"
+                    >
+                      <i className="fa-solid fa-trash" />
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

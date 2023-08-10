@@ -1,0 +1,11 @@
+.icon-button {
+  transition: transform 0.15s linear 0s;
+}
+
+.icon-button:hover {
+  transform: scale(1.2);
+}
+
+.icon-button.clicked {
+  transform: scale(0.8);
+}

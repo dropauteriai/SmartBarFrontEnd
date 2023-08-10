@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./CustomStyles/iconbutton.css";
 
 export default function AddTableForm(props) {
   const [formData, setFormData] = useState({
@@ -49,18 +50,20 @@ export default function AddTableForm(props) {
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
               <div className="border-bottom p-1">
-                <div className="row mb-1 align-items-center">
-                  <div className="col d-flex justify-content-start fs-6">
+                <div className="d-flex flex-row mb-1 align-items-center">
+                  <div className="d-flex flex-fill justify-content-start fs-6">
                     Įrašykite pavadinimą
                   </div>
-                  <div className="col d-flex justify-content-end">
-                    <button
-                      type="button"
-                      className="btn btn-outline-secondary btn-sm border-0 rounded-circle"
-                      onClick={props.handleOnAddTableClosed}
-                    >
-                      <i className="fa-solid fa-xmark fa-lg" />
-                    </button>
+                  <div className="d-flex flex-row justify-content-end">
+                    <div className="icon-button">
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary btn-sm border-0 rounded-circle"
+                        onClick={props.handleOnAddTableClosed}
+                      >
+                        <i className="fa-solid fa-xmark fa-lg" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

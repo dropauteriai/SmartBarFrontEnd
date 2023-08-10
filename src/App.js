@@ -1,5 +1,4 @@
 import logo from "./logo.svg";
-import "./App.css";
 import Home from "./components/Home.js";
 import Menu from "./components/Menu.js";
 import NavBar from "./components/NavBar";
