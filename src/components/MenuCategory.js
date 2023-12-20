@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EditableInput from "./EditableInput";
+import AddMenuItem from "./AddMenuItem";
 
 export default function MenuCategory(props) {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [menuItems, setMenuItems] = useState([]);
+  const [addingProduct, setAddingProduct] = useState(false);
 
   const handleEditClick = () => {
     setIsEditMode(true);
@@ -10,6 +13,10 @@ export default function MenuCategory(props) {
 
   const handleEditCloseClick = () => {
     setIsEditMode(false);
+  };
+
+  const handleAddProduct = () => {
+    setAddingProduct(!addingProduct);
   };
 
   const updateCategory = async (categoryId = props.categoryId, updatedName) => {
@@ -54,6 +61,25 @@ export default function MenuCategory(props) {
       console.log("Category has been deleted successfully.");
     }
   };
+  const fetchCategoryItems = async (categoryId) => {
+    try {
+      const response = await fetch(
+        `https://localhost:5001/Menu?categoryId=${categoryId}`
+      );
+      if (response.ok) {
+        const responseData = await response.json();
+
+        setMenuItems(responseData);
+      }
+    } catch (error) {
+      console.error("an error occured", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategoryItems(props.categoryId);
+  }, []);
+
   return (
     <div className="p-2">
       {isEditMode ? (
@@ -85,10 +111,35 @@ export default function MenuCategory(props) {
         </div>
       )}
       <div className="d-flex justify-content-center border-bottom border-top p-2">
-        <ul></ul>
+        <ul>
+          {menuItems
+            ? menuItems.map((menuItem) => (
+                <div
+                  classname="f-flex flex-row align-items-start"
+                  key={props.categoryName}
+                >
+                  {menuItem.name}
+                  {menuItem.price}
+                </div>
+              ))
+            : " "}
+          {addingProduct ? (
+            <div>
+              <AddMenuItem
+                fetchCategoryItems={fetchCategoryItems}
+                handleAddProduct={handleAddProduct}
+                categoryId={props.categoryId}
+              />
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </ul>
       </div>
       <div className="p-2 mt-3">
-        <button className="btn btn-outline-primary">Pridėti produktą</button>
+        <button onClick={handleAddProduct} className="btn btn-outline-primary">
+          Pridėti produktą
+        </button>
       </div>
     </div>
   );

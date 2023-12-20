@@ -5,25 +5,34 @@ import AddCategoryForm from "./AddCategoryForm";
 
 export default function Menu() {
   const [menuCategories, setMenuCategories] = useState([]);
+  
 
   const fetchMenuCategories = async () => {
     try {
-      const response = await fetch("https://localhost:5001/MenuCategory");
-      if (response.ok) {
-        const data = await response.json();
-        setMenuCategories(data);
+      //const menuItemResponse = await fetch("https://localhost:5001/Menu");
+      const categoryResponse = await fetch("https://localhost:5001/MenuCategory");
+      if (categoryResponse.ok) {
+        const categoryData = await categoryResponse.json();
+        setMenuCategories(categoryData);
       } else {
         console.log("Failed to fetch menu categories");
       }
+      /*if(menuItemResponse.ok){
+        const menuItemData = await menuItemResponse.json();
+        setMenuItems(menuItemData);
+      }*/
     } catch (error) {
       console.error("An error has occured:", error);
     }
   };
 
+  
+
   useEffect(() => {
     fetchMenuCategories();
   }, []);
 
+  
   return (
     <div>
       <AddCategoryForm fetchMenuCategories={fetchMenuCategories} />
@@ -33,13 +42,11 @@ export default function Menu() {
         </div>
         <div className="bg-light border shadow p-3 m-5">
           <div className="d-flex justify-content-evenly p-2">
-            {menuCategories.map((category) => (
+            {menuCategories && menuCategories.map((category) => ( 
               <MenuCategory
                 categoryName={category.name}
                 key={category.id}
                 categoryId={category.id}
-                menuCategories={menuCategories}
-                setMenuCategories={setMenuCategories}
                 fetchMenuCategories={fetchMenuCategories}
               />
             ))}

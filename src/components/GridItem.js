@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AddTableForm from "./AddTableForm";
 import EditableInput from "./EditableInput";
+import AddOrderItem from "./AddOrderItem";
+import OrderItem from "./OrderItem";
 
 export default function GridItem() {
   const [tables, setTables] = useState([]);
@@ -8,6 +10,8 @@ export default function GridItem() {
   const [addTable, setAddTable] = useState(false);
 
   const [isEdit, setIsEdit] = useState(false);
+
+  const [addProduct, setAddProduct] = useState(false);
 
   const handleEditClick = (tableId) => {
     setIsEdit(tableId);
@@ -87,6 +91,9 @@ export default function GridItem() {
       console.error("An error occured:", error);
     }
   };
+  const isAddOrderItem = () => {
+    setAddProduct(!addProduct);
+  };
 
   return (
     <div className="row">
@@ -126,17 +133,30 @@ export default function GridItem() {
                 </div>
               </div>
             )}
-
-            <div className="d-flex justify-content-start p-2"></div>
+            <div className="d-flex justify-content-center align-items-center ">
+              <ul>
+                <OrderItem key={table.id} />
+                <button
+                  onClick={isAddOrderItem}
+                  className="btn btn-outline-primary"
+                >
+                  <i className="fa-solid fa-plus" />
+                </button>
+              </ul>
+            </div>
           </div>
         </div>
       ))}
-      <button
-        className="btn btn-outline-primary m-4"
-        onClick={() => handleOnAddTableOpen()}
-      >
-        <i className="fa-solid fa-plus me-1" /> Pridėti stalą
-      </button>
+      <div className="d-flex col-sm-6 col-md-6 col-lg-4 col-xl-3 p-2 justify-content-center align-items-center">
+        <div>
+          <button
+            className="btn btn-outline-primary "
+            onClick={() => handleOnAddTableOpen()}
+          >
+            <i className="fa-solid fa-plus" />
+          </button>
+        </div>
+      </div>
       {addTable && (
         <AddTableForm
           handleOnAddTableClosed={handleOnAddTableClosed}
